@@ -9,20 +9,20 @@ import { Http } from '@angular/http';
 import { StoreModule } from '@ngrx/store';
 import { EffectsModule } from '@ngrx/effects';
 import { TranslateLoader } from 'ng2-translate';
-
+import { StoreDevtoolsModule } from '@ngrx/store-devtools';
 // app
 import { AppComponent } from './app/components/app.component';
-import { HomeComponent } from './app/components/home/home.component';
-import { AboutComponent } from './app/components/about/about.component';
 import { routes } from './app/components/app.routes';
 
 // feature modules
 import { CoreModule } from './app/frameworks/core/core.module';
 import { AnalyticsModule } from './app/frameworks/analytics/analytics.module';
-import { multilingualReducer, MultilingualEffects } from './app/frameworks/i18n/index';
 import { MultilingualModule, translateFactory } from './app/frameworks/i18n/multilingual.module';
 import { SampleModule } from './app/frameworks/sample/sample.module';
-import { nameListReducer, NameListEffects } from './app/frameworks/sample/index';
+import {SiteModule} from './app/components/site.module';
+import {nameListReducer,NameListEffects, NameListService } from './app/components/home/name-list.service';
+import {multilingualReducer} from './app/frameworks/i18n/services/multilingual.service';
+import {mealListReducer} from './app/components/meal-list/meal-list.service';
 
 // config
 import { Config, WindowService, ConsoleService } from './app/frameworks/core/index';
@@ -71,19 +71,19 @@ export function cons() {
       useFactory: (translateFactory)
     }]),
     SampleModule,
-    StoreModule.provideStore({
+    SiteModule,
+    StoreModule.provideStore({      
       i18n: multilingualReducer,
-      names: nameListReducer
+      names: nameListReducer,
+      mealList: mealListReducer
     }),
-    EffectsModule.run(MultilingualEffects),
     EffectsModule.run(NameListEffects)
+    //StoreDevtoolsModule.instrumentOnlyWithExtension()
   ],
   declarations: [
-    AppComponent,
-    HomeComponent,
-    AboutComponent
+    
   ],
-  providers: [
+  providers: [    
     {
       provide: APP_BASE_HREF,
       useValue: '<%= APP_BASE %>'

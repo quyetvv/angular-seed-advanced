@@ -4,14 +4,15 @@ import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { RouterModule } from '@angular/router';
 import { HttpModule, Http } from '@angular/http';
+import { EffectsModule } from '@ngrx/effects';
+import { StoreModule } from '@ngrx/store';
 
 // libs
 import { TranslateModule, TranslateStaticLoader } from 'ng2-translate';
-
 // app
 import { Config } from '../core/index';
 import { LangSwitcherComponent } from './components/lang-switcher.component';
-import { MultilingualService } from './services/multilingual.service';
+import { multilingualReducer, MultilingualService,MultilingualEffects } from './services/multilingual.service';
 
 // for AoT compilation
 export function translateFactory(http: Http) {
@@ -28,7 +29,11 @@ export function translateFactory(http: Http) {
     RouterModule,
     FormsModule,
     HttpModule,
-    TranslateModule.forRoot()
+    StoreModule.provideStore({
+      i18n: multilingualReducer
+    }),
+    TranslateModule.forRoot(),
+    EffectsModule.run(MultilingualEffects)
   ],
   declarations: [
     LangSwitcherComponent
@@ -39,7 +44,7 @@ export function translateFactory(http: Http) {
   ],
   providers: [
     MultilingualService
-  ]
+  ]  
 })
 export class MultilingualModule {
 

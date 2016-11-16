@@ -1,8 +1,7 @@
 import {
   async,
   fakeAsync,
-  inject,
-  tick
+  inject
 } from '@angular/core/testing';
 
 // intellisense via shorthand
@@ -25,7 +24,6 @@ export interface TestApi {
   xit(name: string, fn: Function, timeOut?: number): void;
   pending(reason?: string): void;
   spyOn(object: any, method: string): jasmine.Spy;
-  tick(delay?: number): void;
 };
 
 // shorthand - reduces boilerplate in every test
@@ -47,6 +45,5 @@ export const Ng2Jasmine: TestApi = {
   fit: fit,
   xit: xit,
   pending: pending,
-  spyOn: spyOn,
-  tick: tick
+  spyOn: spyOn
 };

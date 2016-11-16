@@ -11,7 +11,6 @@ import { StoreModule } from '@ngrx/store';
 // app
 import { ToolbarComponent } from './components/toolbar.component';
 import { NavbarComponent } from './components/navbar.component';
-import { NameListService } from './services/name-list.service';
 import { MultilingualModule } from '../i18n/multilingual.module';
 import { IMultilingualState } from '../i18n/services/multilingual.service';
 
@@ -39,7 +38,7 @@ export interface AppStoreI {
     NavbarComponent
   ],
   providers: [
-    NameListService
+    
   ],
   exports: [
     ToolbarComponent,

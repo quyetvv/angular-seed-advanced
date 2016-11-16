@@ -4,20 +4,21 @@ import { Observable } from 'rxjs/Observable';
 
 // app
 import { BaseComponent, RouterExtensions } from '../../frameworks/core/index';
-import { NAME_LIST_ACTIONS } from '../../frameworks/sample/index';
+import { NAME_LIST_ACTIONS} from './name-list.service';
 
 @BaseComponent({
   moduleId: module.id,
   selector: 'sd-home',
   templateUrl: 'home.component.html',
-  styleUrls: ['home.component.css']
+  styleUrls: ['home.component.css']  
 })
 export class HomeComponent {
   public names$: Observable<any>;
   public newName: string = '';
 
-  constructor(private store: Store<any>, public routerext: RouterExtensions) {
-    this.names$ = store.select('names');
+  constructor(private store: Store<any>, public routerext: RouterExtensions) {    
+    this.names$ = this.store.select('names');    
+    this.store.dispatch({ type: NAME_LIST_ACTIONS.INIT });
   }
 
   /*

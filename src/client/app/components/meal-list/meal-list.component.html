@@ -1,0 +1,15 @@
+<form (submit)="addMeal()">
+  <input [(ngModel)]="newMeal" name="newMeal" [placeholder]="'INPUT_HINT' | translate">
+  <button type="submit">{{'ADD_BTN_TEXT' | translate}}</button>
+</form>
+
+<ul>
+  <li *ngFor="let meal of (mealList | async)">
+    {{meal.name}} submit 
+    {{meal.time}}
+    </li>
+
+    <li *ngFor="let name of (dataList | async)">
+       {{name}}   
+    </li>
+</ul>
